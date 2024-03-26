@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <ctime>
 #include <chrono>
@@ -6,10 +7,12 @@
 #include <functional>
 #include <random>
 #include <iomanip>
-
+#include <filesystem>
 
 using namespace std;
 using namespace std::chrono;
+
+namespace fs = std::filesystem;
 
 struct ResourceUsage {
     long long comparisons;
@@ -239,6 +242,75 @@ ResourceUsage insert_sort(int arr[], int size) {
     return usage;
 }
 
+int main() {
+    const vector<int> sizes = {10000, 20000, 30000, 40000, 50000};
+    
+    vector<pair<string, SortFunc>> sortAlgorithms = {
+        {"Bubble Sort", bubble_sort},
+        {"Quick Sort", quicksort},
+        {"Merge Sort", merge_sort},
+        {"Insertion Sort", insert_sort}
+    };
+
+    vector<pair<string, function<void(int[], int)>>> dataGenerators = {
+        {"Uniform Distribution", uniform_distribution},
+        {"Normal Distribution", normal_distribut},
+        {"Sorted Data", generateSortedData},
+        {"Reverse Sorted Data", generateReverseSortedData}
+    };
+
+    ofstream outputFile("sorting_results.txt", ios::out);
+    outputFile << "+---------+-------------------+----------------------+-------------------+-------------------+-------------------+-------------------+" << endl;
+    outputFile << "| Array   | Sorting           | Data Generation      |  Comparisons      | Assignments       |  Time taken       | Memory used       |" << endl;
+    outputFile << "| Size    | Algorithm         | Method               |                   |                   |                   |                   |" << endl;
+    outputFile << "+---------+-------------------+----------------------+-------------------+-------------------+-------------------+-------------------+" << endl;
+
+   for (int size : sizes) {
+        for (const auto& algorithm : sortAlgorithms) {
+            for (const auto& dataGen : dataGenerators) { 
+                vector<int> numbers(size);
+                dataGen.second(numbers.data(), size); 
+
+                SortFunc sortingAlgorithm = algorithm.second;
+                ResourceUsage usage = sortingAlgorithm(numbers.data(), size);
+
+                outputFile << "| " << setw(8) << left << size;
+                outputFile << "| " << setw(18) << left << algorithm.first;
+                outputFile << "| " << setw(21) << left << dataGen.first;
+                outputFile << "| " << setw(18) << left << usage.comparisons;
+                outputFile << "| " << setw(18) << left << usage.assignments;
+                outputFile << "| " << setw(18) << left << fixed << setprecision(6) << usage.time_taken;
+                outputFile << "| " << setw(18) << left << usage.memory << "|" << endl;
+            }
+            outputFile << "+---------+-------------------+----------------------+-------------------+-------------------+-------------------+-------------------+" << endl;
+        }
+    }
+
+    outputFile.close();
+    
+    fs::create_directory("data");
+
+    for (const auto& dataGen : dataGenerators) {
+        string folderName = "data/Data_" + dataGen.first;
+        fs::create_directory(folderName);
+        
+        for (int size : sizes) {
+            for (const auto& algorithm : sortAlgorithms) {
+                vector<int> numbers(size);
+                dataGen.second(numbers.data(), size); 
+
+                SortFunc sortingAlgorithm = algorithm.second;
+                ResourceUsage usage = sortingAlgorithm(numbers.data(), size);
+
+                string fileName = folderName + "/" + algorithm.first + ".txt";
+                ofstream outputFile(fileName, ios::app);
+                outputFile << size << " " << usage.time_taken << endl;
+                outputFile.close();
+            }
+        }
+    }
+    return 0;
+}
 
 /*
 int main() {
@@ -309,52 +381,3 @@ int main() {
     return 0;
 }
 */
-int main() {
-    const vector<int> sizes = {10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000};
-    
-    vector<pair<string, SortFunc>> sortAlgorithms = {
-        {"Bubble Sort", bubble_sort},
-        {"Quick Sort", quicksort},
-        {"Merge Sort", merge_sort},
-        {"Insertion Sort", insert_sort}
-    };
-
-    cout << "+---------+-------------------+----------------------+-------------------+-------------------+-------------------+-------------------+" << endl;
-    cout << "| Array   | Sorting           | Data Generation      |  Comparisons      | Assignments       |  Time taken       | Memory used       |" << endl;
-    cout << "| Size    | Algorithm         | Method               |                   |                   |                   |                   |" << endl;
-    cout << "+---------+-------------------+----------------------+-------------------+-------------------+-------------------+-------------------+" << endl;
-
-    for (int size : sizes) {
-        for (const auto& algorithm : sortAlgorithms) {
-            for (int dataGen = 0; dataGen < 4; ++dataGen) {
-                vector<int> numbers(size);
-                switch (dataGen) {
-                    case 0: uniform_distribution(numbers.data(), size); break;
-                    case 1: normal_distribut(numbers.data(), size); break;
-                    case 2: generateSortedData(numbers.data(), size); break;
-                    case 3: generateReverseSortedData(numbers.data(), size); break;
-                }
-
-                SortFunc sortingAlgorithm = algorithm.second;
-                ResourceUsage usage = sortingAlgorithm(numbers.data(), size);
-
-                cout << "| " << setw(8) << left << size;
-                cout << "| " << setw(18) << left << algorithm.first;
-                cout << "| ";
-                switch (dataGen) {
-                    case 0: cout << setw(21) << left << "Uniform Distribution"; break;
-                    case 1: cout << setw(21) << left << "Normal Distribution"; break;
-                    case 2: cout << setw(21) << left << "Sorted Data"; break;
-                    case 3: cout << setw(21) << left << "Reverse Sorted Data"; break;
-                }
-                cout << "| " << setw(18) << left << usage.comparisons;
-                cout << "| " << setw(18) << left << usage.assignments;
-                cout << "| " << setw(18) << left << fixed << setprecision(6) << usage.time_taken;
-                cout << "| " << setw(18) << left << usage.memory << "|" << endl;
-            }
-            cout << "+---------+-------------------+----------------------+-------------------+-------------------+-------------------+-------------------+" << endl;
-        }
-    }
-
-    return 0;
-}

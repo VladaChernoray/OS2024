@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/VLADA/Desktop/2024/OS",
-      "program": "c:/Users/VLADA/Desktop/2024/OS/build/Debug/outDebug",
+      "cwd": "c:/Users/VLADA/Desktop/2024/OS2024/lab_1",
+      "program": "c:/Users/VLADA/Desktop/2024/OS2024/lab_1/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
