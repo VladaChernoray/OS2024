@@ -1,0 +1,120 @@
+Data Generator: Uniform Distribution
+Sorting Algorithm: Bubble Sort
+Size: 2000
+Average Time: 0.0152601
+Average Comparisons: 1999000
+Average Assignments: 3004603
+Average Memory Used: 16016 bytes
+
+Sorting Algorithm: Quick Sort
+Size: 2000
+Average Time: 0.000306598
+Average Comparisons: 10670
+Average Assignments: 5335
+Average Memory Used: 16504 bytes
+
+Sorting Algorithm: Merge Sort
+Size: 2000
+Average Time: 0.00232144
+Average Comparisons: 19410
+Average Assignments: 24493
+Average Memory Used: 191616 bytes
+
+Sorting Algorithm: Insertion Sort
+Size: 2000
+Average Time: 0.0107695
+Average Comparisons: 1003353
+Average Assignments: 3004084
+Average Memory Used: 16048 bytes
+
+-----------------------------------------------
+Data Generator: Normal Distribution
+Sorting Algorithm: Bubble Sort
+Size: 2000
+Average Time: 0.0115005
+Average Comparisons: 1999000
+Average Assignments: 3010608
+Average Memory Used: 16016 bytes
+
+Sorting Algorithm: Quick Sort
+Size: 2000
+Average Time: 0.000276658
+Average Comparisons: 10654
+Average Assignments: 5327
+Average Memory Used: 16504 bytes
+
+Sorting Algorithm: Merge Sort
+Size: 2000
+Average Time: 0.00223767
+Average Comparisons: 19416
+Average Assignments: 24487
+Average Memory Used: 191616 bytes
+
+Sorting Algorithm: Insertion Sort
+Size: 2000
+Average Time: 0.0110175
+Average Comparisons: 1002569
+Average Assignments: 3001732
+Average Memory Used: 16048 bytes
+
+-----------------------------------------------
+Data Generator: Sorted Data
+Sorting Algorithm: Bubble Sort
+Size: 2000
+Average Time: 0.0208202
+Average Comparisons: 1999000
+Average Assignments: 5997000
+Average Memory Used: 16016 bytes
+
+Sorting Algorithm: Quick Sort
+Size: 2000
+Average Time: 7.0659e-05
+Average Comparisons: 2046
+Average Assignments: 1023
+Average Memory Used: 16504 bytes
+
+Sorting Algorithm: Merge Sort
+Size: 2000
+Average Time: 0.00218653
+Average Comparisons: 11088
+Average Assignments: 32816
+Average Memory Used: 191616 bytes
+
+Sorting Algorithm: Insertion Sort
+Size: 2000
+Average Time: 7.029e-06
+Average Comparisons: 1999
+Average Assignments: 0
+Average Memory Used: 16048 bytes
+
+-----------------------------------------------
+Data Generator: Reverse Sorted Data
+Sorting Algorithm: Bubble Sort
+Size: 2000
+Average Time: 0.00683283
+Average Comparisons: 1999000
+Average Assignments: 0
+Average Memory Used: 16016 bytes
+
+Sorting Algorithm: Quick Sort
+Size: 2000
+Average Time: 0.00117888
+Average Comparisons: 3998
+Average Assignments: 1999
+Average Memory Used: 16504 bytes
+
+Sorting Algorithm: Merge Sort
+Size: 2000
+Average Time: 0.00224812
+Average Comparisons: 10864
+Average Assignments: 33040
+Average Memory Used: 191616 bytes
+
+Sorting Algorithm: Insertion Sort
+Size: 2000
+Average Time: 0.0206512
+Average Comparisons: 1999000
+Average Assignments: 5997000
+Average Memory Used: 16048 bytes
+
+-----------------------------------------------
