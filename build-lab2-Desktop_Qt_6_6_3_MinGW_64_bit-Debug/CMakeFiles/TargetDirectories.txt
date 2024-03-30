@@ -1,0 +1,9 @@
+C:/Users/VLADA/Desktop/2024/OS2024/build-lab2-Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/lab2.dir
+C:/Users/VLADA/Desktop/2024/OS2024/build-lab2-Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/VLADA/Desktop/2024/OS2024/build-lab2-Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/VLADA/Desktop/2024/OS2024/build-lab2-Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/list_install_components.dir
+C:/Users/VLADA/Desktop/2024/OS2024/build-lab2-Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/install.dir
+C:/Users/VLADA/Desktop/2024/OS2024/build-lab2-Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/install/local.dir
+C:/Users/VLADA/Desktop/2024/OS2024/build-lab2-Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/install/strip.dir
+C:/Users/VLADA/Desktop/2024/OS2024/build-lab2-Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/lab2_autogen_timestamp_deps.dir
+C:/Users/VLADA/Desktop/2024/OS2024/build-lab2-Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/lab2_autogen.dir
