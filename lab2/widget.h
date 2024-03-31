@@ -3,7 +3,11 @@
 
 #include <QWidget>
 #include <QFileSystemModel>
+#include <QStringListModel>
+#include <QStringList>
 #include <QDir>
+#include <QLabel>
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,12 +27,22 @@ private slots:
 
     void on_navigateToParentDirectory_clicked();
 
-    void on_rightEl_windowIconTextChanged(const QString &iconText);
-
     void displayTextFileContent(const QString &filePath);
+
+    void displayImageFileContent(const QString &filePath);
+
+    void displayXmlFileContent(const QString &filePath);
+
+    void displayHtmlFileContent(const QString &filePath);
+
+    void displayInfoAbout(const QString &filepath);
+
+    void displayInfoAboutDir(const QFileInfo &dirInfo);
 
 private:
     Ui::Widget *ui;
     QFileSystemModel *model;
+    QStringListModel *textModel;
+    QListWidgetItem *item;
 };
 #endif // WIDGET_H

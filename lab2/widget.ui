@@ -2,50 +2,123 @@
 <ui version="4.0">
  <class>Widget</class>
  <widget class="QWidget" name="Widget">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>961</width>
+    <height>532</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Widget</string>
+   <string notr="true">System File Viewer</string>
   </property>
-  <widget class="QListView" name="leftEl">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>90</y>
-     <width>311</width>
-     <height>471</height>
-    </rect>
-   </property>
-  </widget>
+  <property name="styleSheet">
+   <string notr="true">background-color: grey; </string>
+  </property>
   <widget class="QListView" name="rightEl">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>90</y>
-     <width>391</width>
-     <height>471</height>
+     <x>360</x>
+     <y>20</y>
+     <width>581</width>
+     <height>491</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: LightGrey;
+padding: 30px 25px;</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="autoScroll">
+    <bool>true</bool>
+   </property>
+   <property name="tabKeyNavigation">
+    <bool>true</bool>
+   </property>
+   <property name="showDropIndicator" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="dragEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="dragDropOverwriteMode">
+    <bool>false</bool>
+   </property>
+   <property name="dragDropMode">
+    <enum>QAbstractItemView::NoDragDrop</enum>
+   </property>
+   <property name="alternatingRowColors">
+    <bool>false</bool>
+   </property>
+   <property name="isWrapping" stdset="0">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QPushButton" name="navigateToParentDirectory">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>60</y>
-     <width>83</width>
-     <height>29</height>
+     <x>30</x>
+     <y>30</y>
+     <width>31</width>
+     <height>21</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: none;
+background-color: lightGrey;
+color: black;
+font-size: 20px;
+</string>
+   </property>
    <property name="text">
-    <string>&lt;-</string>
+    <string>←</string>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
+   <property name="default">
+    <bool>false</bool>
+   </property>
+   <property name="flat">
+    <bool>false</bool>
    </property>
   </widget>
+  <widget class="QListView" name="leftEl">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>321</width>
+     <height>491</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: LightGrey;
+padding:  30px 20px;
+</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+  </widget>
+  <zorder>rightEl</zorder>
+  <zorder>leftEl</zorder>
+  <zorder>navigateToParentDirectory</zorder>
  </widget>
  <resources/>
  <connections/>
