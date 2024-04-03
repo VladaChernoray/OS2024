@@ -155,8 +155,13 @@ void Widget::displayInfoAboutDir(const QFileInfo &dirInfo) {
     dirInfoList << "Directory Name: " + dirInfo.fileName();
     dirInfoList << "Creation Date: " + dirInfo.birthTime().toString();
 
+    int allFilesCount = 0;
     int fileCount = 0;
-    int dirCount = 0;
+
+
+    QFileInfoList allFilesList = directory.entryInfoList(QDir::Files);
+    allFilesCount = allFilesList.size();
+
 
     QFileInfoList fileList = directory.entryInfoList(QDir::Files);
     for (const QFileInfo& fileInfo : fileList) {
@@ -171,10 +176,7 @@ void Widget::displayInfoAboutDir(const QFileInfo &dirInfo) {
         }
     }
 
-    dirCount = directory.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot).count();
-
-    dirInfoList << "Number of files: " + QString::number(fileCount);
-    dirInfoList << "Number of subfolders: " + QString::number(dirCount);
+    int dirCount = directory.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot).count();
 
     int jpgCount = directory.entryInfoList(QStringList() << "*.jpg", QDir::Files).count();
     int pngCount = directory.entryInfoList(QStringList() << "*.png", QDir::Files).count();
@@ -183,6 +185,8 @@ void Widget::displayInfoAboutDir(const QFileInfo &dirInfo) {
     int xmlCount = directory.entryInfoList(QStringList() << "*.xml", QDir::Files).count();
     int docxCount = directory.entryInfoList(QStringList() << "*.docx", QDir::Files).count();
 
+    dirInfoList << "Number of all files: " + QString::number(allFilesCount);
+
     dirInfoList << "Number of JPG files: " + QString::number(jpgCount);
     dirInfoList << "Number of PNG files: " + QString::number(pngCount);
     dirInfoList << "Number of TXT files: " + QString::number(txtCount);
@@ -190,6 +194,9 @@ void Widget::displayInfoAboutDir(const QFileInfo &dirInfo) {
     dirInfoList << "Number of XML files: " + QString::number(xmlCount);
     dirInfoList << "Number of DOCX files: " + QString::number(docxCount);
 
+    dirInfoList << "Number of subfolders: " + QString::number(dirCount);
+
     textModel->setStringList(dirInfoList);
     ui->rightEl->setModel(textModel);
 }
+

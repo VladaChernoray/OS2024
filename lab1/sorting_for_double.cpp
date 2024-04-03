@@ -283,7 +283,7 @@ int main() {
         {"Sorted Data", generateSortedData},
         {"Reverse Sorted Data", generateReverseSortedData}
     };
-/*
+
     cout << "Sorting average results written to sorting_average_results_for_double.txt" << endl;
 
     ofstream outputFile("tables/sorting_average_results_for_double.txt");
@@ -370,7 +370,7 @@ int main() {
     }
     outputFile_2.close();
 
-   */
+
     string newDirectory = "data/double";
     fs::create_directory(newDirectory);
 
