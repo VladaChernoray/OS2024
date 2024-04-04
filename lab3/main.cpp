@@ -3,6 +3,7 @@
 #include <chrono>
 #include <vector>
 #include <algorithm>
+#include <random>
 
 using namespace std;
 
@@ -21,23 +22,30 @@ bool check_bank_account(int customer_account, int amount) {
     return (amount <= customer_account);
 }
 
-pair<bool, vector<Bill>> possibility_of_payment(int amount, vector<pair<int, int>>& bills) {
-    sort(bills.rbegin(), bills.rend());
+bool check_payment_possibility(int amount, const vector<pair<int, int>>& bills) {
+    int remainingAmount = amount;
+    for (const auto& bill : bills) {
+        int billNominal = bill.first;
+        int billCount = min(remainingAmount / billNominal, bill.second);
+        remainingAmount -= billCount * billNominal;
+        if (remainingAmount == 0)
+            return true;
+    }
+    return false;
+}
+
+vector<Bill> calculate_used_bills(int amount, vector<pair<int, int>>& bills) {
     vector<Bill> usedBills;
-
-    for (int i = 0; i < bills.size(); ++i) {
-        int billNominal = bills[i].first;
-        int billCount = min(amount / billNominal, bills[i].second);
+    for (const auto& bill : bills) {
+        int billNominal = bill.first;
+        int billCount = min(amount / billNominal, bill.second);
         amount -= billCount * billNominal;
-
         if (billCount > 0) {
             usedBills.push_back({billNominal, billCount});
         }
-
-        if (amount == 0)
-            return {true, usedBills};
+        if (amount == 0) break;
     }
-    return {false, usedBills};
+    return usedBills;
 }
 
 void make_payment(int& customer_account, vector<pair<int, int>>& bills, const vector<Bill>& usedBills) {
@@ -72,8 +80,20 @@ void process_A(int& amount, int& customer_account) {
         }
 
         amount = rand() % 100 + 1;
-        cout << endl << "Withdrawal request received: " << amount << " grn" << endl; 
-        paymentRequested = true; 
+        cout << endl << "Withdrawal request received: " << amount << " grn" << endl;
+
+        if (check_bank_account(customer_account, amount)) {
+            if (check_payment_possibility(amount, bills)) {
+                paymentRequested = true;
+            } else {
+                cout << "Payment is not possible. Not enough banknotes at ATM. ATM balance: " << endl;
+                for (const auto& bill : bills) {
+                    cout << "Nominal: " << bill.first << ", Count: " << bill.second << endl;
+                }
+            }
+        } else
+            cout << "Payment is not possible. Not enough funds in the bank account. Client's account balance: " 
+            << customer_account << " grn" << endl;
 
         flags[0] = false;
         queue = 2;
@@ -93,25 +113,13 @@ void process_B(int& amount, int& customer_account) {
                 flags[1] = true;
             }
         }
-        // Critical Section
         if (paymentRequested) {
-            if (check_bank_account(customer_account, amount)) {
-                auto result = possibility_of_payment(amount, bills);
-                if (result.first) {
-                    cout << "Payment is possible. Used bills:" << endl; 
-                    for (const auto& bill : result.second) {
-                        cout << "Nominal: " << bill.nominal << ", Count: " << bill.count << endl; 
-                    }
-                    make_payment(customer_account, bills, result.second);
-                } 
-                else {
-					cout << "Payment is not possible. Not enough banknotes at ATM. ATM balance: " << endl;
-					for (const auto& bill : bills) {
-						cout << "Nominal: " << bill.first << ", Count: " << bill.second << endl;
-					}
-				}
+            auto usedBills = calculate_used_bills(amount, bills);
+            cout << "Payment is possible. Used bills:" << endl;
+            for (const auto& bill : usedBills) {
+                cout << "Nominal: " << bill.nominal << ", Count: " << bill.count << endl;
             }
-            else cout << "Payment is not possible. Not enough funds in the bank account. Client's account balance: " << customer_account << " grn" << endl;
+            make_payment(customer_account, bills, usedBills);
         }
 
         paymentRequested = false;
@@ -123,9 +131,9 @@ void process_B(int& amount, int& customer_account) {
 }
 
 int main() {
-    srand(time(nullptr)); 
-    int amount = 0; 
-    int customer_account = 1000; 
+    srand(time_t(nullptr));
+    int amount = 0;
+    int customer_account = 1000;
 
     thread t1(process_A, std::ref(amount), std::ref(customer_account));
     thread t2(process_B, std::ref(amount), std::ref(customer_account));
