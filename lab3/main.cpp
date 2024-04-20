@@ -63,7 +63,6 @@ void make_payment(int& customer_account, vector<pair<int, int>>& bills, const ve
             }
         }
     }
-
     cout << "Payment successful. Client's account balance: " << customer_account << " grn" << endl;
 }
 
@@ -133,7 +132,7 @@ void process_B(int& amount, int& customer_account) {
 int main() {
     srand(time_t(nullptr));
     int amount = 0;
-    int customer_account = 1000;
+    int customer_account = 400;
 
     thread t1(process_A, std::ref(amount), std::ref(customer_account));
     thread t2(process_B, std::ref(amount), std::ref(customer_account));
