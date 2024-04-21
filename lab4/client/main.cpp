@@ -36,21 +36,21 @@ int main() {
     }
     std::cout << "Connected!" << std::endl;
 
-    int N = 1000;
-    int randomArray[N];
-    generate_array(randomArray, N);
-
-    std::cout << "Array being sent to the server:" << std::endl;
-    for (int i = 0; i < N; i++) {
-        std::cout << randomArray[i] << " ";
-        if (i % 10 == 9) std::cout << std::endl;
-    }
-    std::cout << std::endl;
-
     std::vector<double> times;
     times.reserve(100);
     
     for (int iteration = 0; iteration < 100; iteration++) {
+        int N = 1000;
+        int randomArray[N];
+        generate_array(randomArray, N);
+        
+        std::cout << "Array being sent to the server:" << std::endl;
+        for (int i = 0; i < N; i++) {
+            std::cout << randomArray[i] << " ";
+            if (i % 30 == 9) std::cout << std::endl;
+        }
+        std::cout << std::endl;
+        
         auto start_time = std::chrono::high_resolution_clock::now();
          
         if (send(Connection, (char*)randomArray, sizeof(randomArray), 0) == SOCKET_ERROR) {
@@ -70,7 +70,7 @@ int main() {
 
             for (int i = 0; i < N; i++) {
                 std::cout << receivedSortedArray[i] << " ";
-                if (i % 10 == 9) std::cout << std::endl;
+                if (i % 30 == 9) std::cout << std::endl;
             }
             std::cout << std::endl;
         }
@@ -78,7 +78,7 @@ int main() {
 
     std::cout << "All timing results (in milliseconds):\n";
     for (double t : times) {
-        std::cout << std::fixed << std::setprecision(2) << t << " ms\n";
+        std::cout << std::fixed << std::setprecision(2) << t << " ms" << std::endl;
     }
 
     double total_time = 0;

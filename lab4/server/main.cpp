@@ -25,7 +25,7 @@ int getPivotPos(int* arr, int start, int end) {
 }
 
 int partition(int* arr, int start, int end) {
-    int pivotPos = getPivotPos(arr, start, end);
+    int pivotPos = getPivotPos(arr, start, end);    
     int pivot = arr[pivotPos];
     swap(arr, pivotPos, end);
     int i = start;
@@ -82,23 +82,22 @@ int main() {
         return 1;
     }
 
+    SOCKET newConnection = accept(sListen, (SOCKADDR*)&addr, &sizeofaddr);
+    if (newConnection == INVALID_SOCKET) {
+        std::cout << "Accept failed with error: " << WSAGetLastError() << std::endl;
+        closesocket(sListen);
+        WSACleanup();
+        return 1;
+    }
+
+    std::cout << "Client connected" << std::endl;
+    int N = 1000;
+    int receivedArray[N];
+
     while (true) {
-        SOCKET newConnection = accept(sListen, (SOCKADDR*)&addr, &sizeofaddr);
-        if (newConnection == INVALID_SOCKET) {
-            std::cout << "Accept failed with error: " << WSAGetLastError() << std::endl;
-            closesocket(sListen);
-            WSACleanup();
-            return 1;
-        }
-
-        std::cout << "Client connected" << std::endl;
-        int N = 1000;
-        int receivedArray[N];
-
         if (recv(newConnection, (char*)receivedArray, sizeof(receivedArray), 0) <= 0) {
             std::cout << "Failed to receive data or connection closed by client: " << WSAGetLastError() << std::endl;
-            closesocket(newConnection);
-            continue; 
+            break; 
         }
 
         std::cout << "Data received. Sorting now...\n";
@@ -107,13 +106,13 @@ int main() {
         std::cout << "Data sorted. Sending back...\n";
         if (send(newConnection, (char*)receivedArray, sizeof(receivedArray), 0) == SOCKET_ERROR) {
             std::cout << "Failed to send sorted data: " << WSAGetLastError() << std::endl;
+            break; 
         } else {
             std::cout << "Sorted data sent back to client successfully!" << std::endl;
         }
-
-        closesocket(newConnection);
     }
 
+    closesocket(newConnection); 
     closesocket(sListen);
     WSACleanup();
     return 0;
